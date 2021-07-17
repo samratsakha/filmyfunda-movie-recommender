@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="icon" type="image/png"
+        href="http://www.pngall.com/wp-content/uploads/2016/09/Musical-Notes-Free-Download-PNG.png" />
+    <title>FilmyFunda</title>
+
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+        }
+
+
+        header {
+            color: rgb(255, 255, 255);
+            background-image: url('https://www.dreamincode.net/forums/uploads/monthly_04_2014/post-638814-139809061379.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            font-size: xx-large;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+            justify-items: center;
+            position: sticky;
+            top: 0;
+            height: 110px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .left-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 5%;
+        }
+
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 5%;
+            margin-right: 4%;
+        }
+
+
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+
+        .navbar {
+            background-image: linear-gradient(to right, black, rgb(255, 255, 255));
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 50px;
+            position: sticky;
+            top: 110px;
+        }
+
+        .navbar nav {
+            margin-left: 4%;
+        }
+
+        .navbar nav:hover {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        #search {
+            margin-bottom: 5px;
+            width: 300px;
+        }
+
+        #search_list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #search_list li {
+            background-color: grey;
+            margin-bottom: 1%;
+            width: 300px;
+        }
+
+        #search_list li:hover {
+            cursor: pointer;
+            background-color: blue;
+        }
+
+        #output {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #output li {
+            margin-bottom: 10px;
+        }
+
+        #video_list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .youtube {
+            margin-left: 5%;
+            margin-top: 30px;
+            margin-bottom: 8%;
+            margin-right: 4%;
+        }
+
+        #video_list li {
+            margin-top: 10px;
+        }
+
+        #video_list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #video_list div {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        #video_list div div {
+            display: flex;
+            flex-direction: column;
+            margin-right: 75px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            width: auto\9;
+        }
+
+        @media screen and (max-width: 650px) {
+            #search {
+                width: 200px;
+            }
+
+            #search_list li {
+                width: 200px;
+            }
+
+            #video_list iframe {
+                width: 80%;
+            }
+
+            #your_track iframe {
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            #search {
+                width: 280px;
+            }
+
+            #search_list li {
+                width: 280px;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+        }
+
+        @media screen and (max-width: 325px) {
+            #search {
+                width: 200px;
+            }
+
+            #search_list li {
+                width: 200px;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header">
+        <h3>FilmyFunda</h3>
+        <h5>The Movie Recommender</h5>
+    </header>
+
+    <div class="navbar">
+        <nav><a target="_blank" href="https://www.linkedin.com/in/samrat-sakha-2a62841a3/">LinkedIn</a></nav>
+        <nav><a target="_blank" href="https://github.com/samratsakha">Github</a></nav>
+        <nav><a target="_blank" href="https://samratsakha.github.io/testing.github.io/">WebPage</a></nav>
+        <nav><a target="_blank" href="mailto:samratsakha54@gmail.com">Mail</a></nav>
+    </div>
+
+    <div class="main-content">
+
+        <div class="left-container">
+
+            <input type="text" id="search" placeholder="Search Movies" oninput="filter(this.value)">
+
+            <ul id="search_list">
+
+            </ul><br>
+
+        </div>
+
+        <div class="right-container">
+            <h5>Recommended Movies</h5>
+            <ul id="output">
+                <li>Select Movie</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div id="youtube-id" class="youtube" style="display: none;">
+        <h3>Recommended for you</h3><br>
+        <ul id="video_list">
+
+        </ul>
+    </div>
+
+
+
+    <div id="modal">
+        <!-- Place at bottom of page -->
+    </div>
+
+</body>
+<script type="text/javascript">
+
+
+    var recieve_output = Array();
+    var search_array = Array();
+
+    // Function for filter search
+    function filter(search_val) {
+
+        if (search_val.trim() == "") {
+            document.getElementById("search_list").style.display = "none";
+            return;
+        }
+
+        search_val = search_val.toLowerCase();
+        var count = 0;
+        var track_name = "";
+        search_array = [];
+
+        for (var i = 0; i < recieve_output.length; i++) {
+
+            track_name = recieve_output[i].toLowerCase();
+
+            if (track_name.includes(search_val)) {
+                search_array.push(recieve_output[i]);
+                count++;
+
+                if (count == 10) {
+                    count = 0;
+                    break;
+                }
+
+            }
+
+        }
+
+
+        // Display the search result
+        var disp = "";
+        var year = "";
+        for (var i = 0; i < search_array.length; i++) {
+            year = search_array[i];
+            var temp = "";
+            if (year[(year.length) - 1] == '0' && year[(year.length) - 2] == ' ') {
+                var year_remove = "";
+                for (var j = 0; j < year.length - 1; j++) {
+                    year_remove += year[j];
+                }
+                temp = '<li onclick=recommendation(' + i + ')>' + year_remove + '</li>';
+            }
+            else {
+                temp = '<li onclick=recommendation(' + i + ')>' + search_array[i] + '</li>';
+            }
+            disp = disp + temp;
+        }
+
+        document.getElementById("search_list").innerHTML = disp;
+        document.getElementById("search_list").style.display = "block";
+
+    }
+
+
+
+    // Function call API for getting the tracks
+    function get_tracks() {
+        var entry = {
+            track_array: 'request_tracks'
+        };
+
+        fetch('/to_tracks', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(entry),
+            cache: 'no-cache',
+            headers: new Headers({
+                'content-type': 'application/json'
+            })
+        })
+            .then(function (response) {
+                if (response.status !== 200) {
+                    document.getElementById("modal").style.display = "none";
+                    document.getElementById("output").innerHTML = "Error : Model did not Respond";
+                    document.getElementById("output").style.display = "block";
+                    console.log('Response status was not 200');
+                    return;
+                }
+
+                response.json().then(function (data) {
+                    document.getElementById("modal").style.display = "none";
+                    var display_out = JSON.stringify(data);
+                    var outs = JSON.parse(display_out);
+
+                    recieve_output = outs.output;
+
+                    recieve_output.sort();
+
+                })
+            })
+    }
+
+
+    setTimeout(get_tracks, 1000);
+
+
+
+    function recommendation(selected_track) {
+
+
+        var selected_song = search_array[selected_track];
+
+
+        if (selected_song[(selected_song.length) - 1] == '0' && selected_song[(selected_song.length) - 2] == ' ') {
+            var year_remove = "";
+            for (var j = 0; j < selected_song.length - 1; j++) {
+                year_remove += selected_song[j];
+            }
+            document.getElementById("search").value = year_remove;
+        }
+        else {
+            document.getElementById("search").value = selected_song;
+        }
+
+        document.getElementById("modal").style.display = "block";
+        document.getElementById("search_list").style.display = "none";
+        document.getElementById("youtube-id").style.display = "none";
+
+        var entry = {
+            val_array: selected_song
+        };
+
+        fetch('/to_model', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(entry),
+            cache: 'no-cache',
+            headers: new Headers({
+                'content-type': 'application/json'
+            })
+        })
+            .then(function (response) {
+                if (response.status !== 200) {
+                    document.getElementById("modal").style.display = "none";
+                    document.getElementById("output").innerHTML = "Error : Model did not Respond";
+                    document.getElementById("output").style.display = "block";
+                    console.log('Response status was not 200');
+                    return;
+                }
+
+                response.json().then(function (data) {
+                    document.getElementById("modal").style.display = "none";
+                    var display_out = JSON.stringify(data);
+                    var outs = JSON.parse(display_out);
+
+                    var recommended_songs = outs.output;
+                    var reommended_movies = outs.unique_names;
+
+                    var disp_rec = "";
+                    for (var i = 0; i < recommended_songs.length; i++) {
+                        disp_rec = disp_rec + '<li>' + recommended_songs[i] + '</li>';
+                    }
+
+
+                    document.getElementById("output").innerHTML = disp_rec;
+                    document.getElementById("output").style.display = "block";
+
+                    get_images(reommended_movies);
+
+                })
+            })
+
+    }
+
+    function get_images(movies) {
+
+        var recieved_order = Array();
+        var recieved_url = Array();
+
+        for (var i = 0; i < movies.length; i++) {
+
+            selected_movie = movies[i];
+            var entry = {
+                movie: selected_movie
+            };
+
+            fetch('/to_images', {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify(entry),
+                cache: 'no-cache',
+                headers: new Headers({
+                    'content-type': 'application/json'
+                })
+            })
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        document.getElementById("modal").style.display = "none";
+                        console.log('Response status was not 200');
+                        return;
+                    }
+
+                    response.json().then(function (data) {
+                        document.getElementById("modal").style.display = "none";
+                        var display_out = JSON.stringify(data);
+                        var outs = JSON.parse(display_out);
+
+                        var image_url = outs.output;
+                        var movie_name = outs.movie;
+
+                        recieved_order.push(movie_name);
+                        recieved_url.push(image_url);
+                        push_images(recieved_url, recieved_order);
+
+                    })
+                })
+        }
+
+    }
+
+
+
+    function push_images(recieved_url, recieved_order) {
+
+        var images = "";
+        var temp_img = "";
+        for (var i = 0; i < recieved_url.length; i++) {
+            if (i % 2 == 0) {
+                temp_img = '<div> <div><li>' + recieved_order[i] + '</li> <li> <img src="' + recieved_url[i][0] + '" alt="' + recieved_order[i] + '"> </li> </div>';
+            }
+            else {
+                temp_img = '<div> <li>' + recieved_order[i] + '</li> <li> <img src="' + recieved_url[i][0] + '" alt="' + recieved_order[i] + '"> </li> </div> </div>';
+            }
+            images = images + temp_img;
+        }
+
+        document.getElementById("video_list").innerHTML = images;
+        document.getElementById("youtube-id").style.display = "block";
+
+    }
+
+
+</script>
+
+</html>
